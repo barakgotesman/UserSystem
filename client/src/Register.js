@@ -15,9 +15,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Register() {
+
+
+
+
+function Register() 
+{
+  const classes = useStyles();
+
+
     const hostUrl = "http://localhost:3001/";
-    const classes = useStyles();
 
     const [username, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
@@ -25,17 +32,18 @@ function Register() {
     //const [registerDone, setregisterDone] = useState(false)
 
     const registerNewUser = () => {
-        Axios.post(hostUrl + "api/register",
-          {
-            name: username,
-            email: emailForm,
-            lastConnection: lastConnectionForm
-          }).then((res) => {
-            console.log(res)
-            //setregisterDone(true);
-          });
-      };
-    
+      Axios.post(hostUrl + "api/register",
+        {
+          name: username,
+          email: emailForm,
+          lastConnection: lastConnectionForm
+        }).then((res) => {
+          console.log(res)
+          
+          //setregisterDone(true);
+        });
+    };
+
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <TextField
@@ -62,8 +70,12 @@ function Register() {
             <Button variant="contained" color="primary" href="#contained-buttons" onClick={registerNewUser}>
               Register user
             </Button>
+
           </form>
 
+
     )
-}
-export default Register;
+  }
+
+  export default Register;
+ 

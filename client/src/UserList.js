@@ -31,35 +31,19 @@ function UserList() {
 
     const [userList, setUserList] = useState([])
 
-    const [userid, setUserId] = useState('')
+    const [userid, setUserId] = useState(0)
     // for dialog "are you sure?"
     const [open, setOpen] = useState(false);
-    const handleClickOpen = (userid) => {
+    const handleClickOpen = (uid) => {
+        setUserId(uid)
         setOpen(true);
-        setUserId(userid)
+
     };
 
     const handleClose = () => {
         setOpen(false);
-
+        setUserId(0);
     };
-
-
-    const [username, setUsername] = useState('')
-    const [emailForm, setEmail] = useState('')
-
-    /*
-    const editUser = () => {
-        Axios.post("http://localhost:3001/api/update",
-          {
-            name: username,
-            email: emailForm,
-          }).then((res) => {
-            console.log(res)
-            //setregisterDone(true);
-          });
-      };
-*/
 
 
     const fetchDataUsers =
@@ -71,7 +55,7 @@ function UserList() {
             })
         }
 
-    const deleteUser = (userid) => {
+    const deleteUser = () => {
         console.log("delete user calledd!", userid)
         Axios.delete(`http://localhost:3001/api/delete/${userid}`).then((res) => {
             fetchDataUsers()
@@ -83,10 +67,8 @@ function UserList() {
     useEffect(() => {
 
         fetchDataUsers()
-        //regCallBack(false)
 
     }, []);
-    //registerDone
 
     return (
         <div>
@@ -114,7 +96,7 @@ function UserList() {
                                     variant="outlined"
                                     color="primary"
                                     component={Link}
-                                    to="/edit/34"
+                                    to='/edit/33'
                                     endIcon={<EditIcon></EditIcon>}
                                 >
                                     edit
@@ -123,7 +105,7 @@ function UserList() {
                             <TableCell>
                                 <IconButton
                                     aria-label="delete"
-                                    onClick={handleClickOpen}>
+                                    onClick={() => {handleClickOpen(user.id)}}>
                                     <HighlightOffIcon color="error" />
                                 </IconButton>
                             </TableCell>
@@ -156,7 +138,7 @@ function UserList() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={ ()=>{deleteUser(userid)}} color="primary" autoFocus>
+                    <Button onClick={deleteUser} color="primary" autoFocus>
                         Yes, delete user
                     </Button>
                 </DialogActions>
