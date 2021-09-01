@@ -14,13 +14,36 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Link, Router } from "@reach/router";
 
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 
 
 //{ registerDone, regCallBack }
 
 function UserList() {
+
+
+
     const [userList, setUserList] = useState([])
+
+    const [userid, setUserId] = useState('')
+    // for dialog "are you sure?"
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = (userid) => {
+        setOpen(true);
+        setUserId(userid)
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+
+    };
+
 
     const [username, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
@@ -39,20 +62,22 @@ function UserList() {
 */
 
 
-    const fetchDataUsers = 
-    () => {
-        console.log("fetchDataUsers called!")
-        Axios.get("http://localhost:3001/api/get").then((res) => {
-            setUserList(res.data)
+    const fetchDataUsers =
+        () => {
+            console.log("fetchDataUsers called!")
+            Axios.get("http://localhost:3001/api/get").then((res) => {
+                setUserList(res.data)
 
-        })
-    }
+            })
+        }
 
     const deleteUser = (userid) => {
-        console.log("delete user calledd!")
+        console.log("delete user calledd!", userid)
         Axios.delete(`http://localhost:3001/api/delete/${userid}`).then((res) => {
             fetchDataUsers()
+            handleClose()
         })
+        
     }
 
     useEffect(() => {
@@ -61,7 +86,7 @@ function UserList() {
         //regCallBack(false)
 
     }, []);
-//registerDone
+    //registerDone
 
     return (
         <div>
@@ -78,7 +103,7 @@ function UserList() {
                 </TableHead>
                 <TableBody>
                     {userList.map((user) =>
-                        <TableRow>
+                        <TableRow key={user.id}>
                             <TableCell>{user.id}</TableCell>
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.email}</TableCell>
@@ -88,7 +113,7 @@ function UserList() {
                                     size="small"
                                     variant="outlined"
                                     color="primary"
-                                    component={Link} 
+                                    component={Link}
                                     to="/edit/34"
                                     endIcon={<EditIcon></EditIcon>}
                                 >
@@ -98,7 +123,7 @@ function UserList() {
                             <TableCell>
                                 <IconButton
                                     aria-label="delete"
-                                    onClick={() => { deleteUser(user.id) }}>
+                                    onClick={handleClickOpen}>
                                     <HighlightOffIcon color="error" />
                                 </IconButton>
                             </TableCell>
@@ -107,6 +132,35 @@ function UserList() {
                 </TableBody>
             </TableContainer>
             <Icon className="fa fa-plus-circle" />
+
+
+
+
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    Hi there, pay attention
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    This action cannot be undone, 
+                    are you sure you want to delete this user?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={ ()=>{deleteUser(userid)}} color="primary" autoFocus>
+                        Yes, delete user
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
         </div>
     )
