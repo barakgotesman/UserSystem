@@ -42,6 +42,9 @@ function App() {
         setregisterDone(true);
       });
   };
+
+                <UserList path="/showusers" registerDone={registerDone} regCallBack={setregisterDone}/>
+
 */
   return (
    
@@ -56,8 +59,9 @@ function App() {
         <div>
           <Router>
               <Home path="/"></Home>
-              <UserList path="/showusers" registerDone={registerDone} regCallBack={setregisterDone}/>
               <Register path="/register" />
+              <UserList path="/showusers"/>
+              <EditUser path="edit/:userid" />
           </Router>
         </div>
 
@@ -65,7 +69,6 @@ function App() {
         </Grid>
       </Grid>
       <Footer />
-      <EditUser user={{id:26,email:'barak@gmail.com',username:'barak'}}/>
     </Container>
   );
 }

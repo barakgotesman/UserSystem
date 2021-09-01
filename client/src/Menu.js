@@ -16,7 +16,7 @@ function Menu() {
         <MenuItem component={Link} to="/showusers">
           Users
         </MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem component={Link} to="/register">Register</MenuItem>
       </MenuList>
 
     </Paper>

@@ -11,19 +11,21 @@ import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+import { Link, Router } from "@reach/router";
 
 
 
 
 
+//{ registerDone, regCallBack }
 
-
-function UserList({ registerDone, regCallBack }) {
+function UserList() {
     const [userList, setUserList] = useState([])
 
     const [username, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
 
+    /*
     const editUser = () => {
         Axios.post("http://localhost:3001/api/update",
           {
@@ -34,9 +36,11 @@ function UserList({ registerDone, regCallBack }) {
             //setregisterDone(true);
           });
       };
+*/
 
 
-    const fetchDataUsers = () => {
+    const fetchDataUsers = 
+    () => {
         console.log("fetchDataUsers called!")
         Axios.get("http://localhost:3001/api/get").then((res) => {
             setUserList(res.data)
@@ -54,15 +58,13 @@ function UserList({ registerDone, regCallBack }) {
     useEffect(() => {
 
         fetchDataUsers()
-        regCallBack(false)
+        //regCallBack(false)
 
-    }, [registerDone]);
-
+    }, []);
+//registerDone
 
     return (
         <div>
-
-            <h1> test {registerDone.toString()}</h1>
             <TableContainer >
                 <TableHead>
                     <TableRow>
@@ -86,7 +88,9 @@ function UserList({ registerDone, regCallBack }) {
                                     size="small"
                                     variant="outlined"
                                     color="primary"
-                                    endIcon={<EditIcon>send</EditIcon>}
+                                    component={Link} 
+                                    to="/edit/34"
+                                    endIcon={<EditIcon></EditIcon>}
                                 >
                                     edit
                                 </Button>

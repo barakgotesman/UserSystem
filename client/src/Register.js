@@ -12,7 +12,7 @@ function Register() {
     const [username, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
     const [lastConnectionForm, setLastConnection] = useState('')
-    const [registerDone, setregisterDone] = useState(false)
+    //const [registerDone, setregisterDone] = useState(false)
 
     const registerNewUser = () => {
         Axios.post(hostUrl + "api/register",
@@ -21,9 +21,8 @@ function Register() {
             email: emailForm,
             lastConnection: lastConnectionForm
           }).then((res) => {
-            //alert("test")
             console.log(res)
-            setregisterDone(true);
+            //setregisterDone(true);
           });
       };
     

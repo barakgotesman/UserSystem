@@ -33,8 +33,8 @@ app.put("/api/update", (req, res)=> {
 })
 
 // delete user by user id
-app.delete('/api/delete/:userId', (req, res) => {
-    const userId = req.params.userId;
+app.delete('/api/delete/:userid', (req, res) => {
+    const userId = req.params.userid;
     const sqlDeleteQuery = "DELETE FROM users WHERE id = ?";
     db.query(sqlDeleteQuery, userId, (err, result) => {
         if (err)
@@ -43,6 +43,15 @@ app.delete('/api/delete/:userId', (req, res) => {
             {res.send(result)}
     })
 })
+
+// get user by id
+app.get('/api/get/:userid', (req, res) => {
+    const userId = req.params.userid;
+    const sqlQuery = `SELECT * FROM users WHERE id = ?`;
+    db.query(sqlQuery, userId, (err, result) => {
+        res.send(result);
+    });
+});
 
 // get all users from users table
 app.get('/api/get', (req, res) => {
