@@ -4,6 +4,7 @@ const cors = require("cors");
 const mysql = require("mysql");
 const app = express();
 
+
 // connect to our database
 const db = mysql.createPool({
     host: 'localhost',
@@ -16,29 +17,42 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyPaser.urlencoded({ extended: true }));
 
+// delete user by user id
+app.delete('/api/delete/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const sqlDeleteQuery = "DELETE FROM users WHERE id = ?";
+    db.query(sqlDeleteQuery, userId, (err, result) => {
+        if (err)
+            {console.log(err)}
+        else
+            {res.send(result)}
+    })
+})
 
-app.get('/api/get', (res, req)=>{
+// get all users from users table
+app.get('/api/get', (req, res) => {
     const sqlQuery = `SELECT * FROM users`;
     db.query(sqlQuery, (err, result) => {
-        console.log(result)
+        res.send(result);
     });
 });
 
 app.post('/api/register', (req, res) => {
     const userName = req.body.name;
-    const ln = req.body.last_name;
-    const g = req.body.gender;
-    const locUser = req.body.location;
-    const sqlQuery = `INSERT INTO users
-    (name,last_name,gender,location) 
-    VALUES({?},{?},{?},{?})`;
-    db.query(sqlQuery, [userName, ln, g, locUser], (err, result) => {
+    const email = req.body.email;
+    const lastConnection = req.body.lastConnection;
+    const sqlQueryInsert =
+        "INSERT INTO `users` (name,email,last_connection) VALUES(?,?,?)";
+    db.query(sqlQueryInsert, [userName, email, lastConnection], (err, result) => {
+        if (err)
+            console.log(err);
         res.send(result);
+        console.log(result);
     });
 });
 
 app.get('/', (req, res) => {
-
+    res.send("test ")
 });
 
 app.listen(3001, () => {

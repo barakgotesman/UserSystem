@@ -8,13 +8,13 @@ function Footer() {
         <Box mt={3} p={2}>
             <Typography align="center">
                 <Divider />
-                <b>This website created by - <Link
+                This website created by - <Link
                     color="primary"
                     href="https://www.linkedin.com/in/barak-gotesman-04424015b/"
                     target="_blank">
                      Barak Gotesman
                 </Link>
-                </b>
+                
             </Typography>
         </Box>
     )

@@ -10,7 +10,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Axios from 'axios';
 
-import Footer from './footer';
+import Footer from './Footer';
+import UserList from './UserList.js';
+import Paper from '@material-ui/core/Paper';
+
+
 
 function App() {
 
@@ -18,67 +22,54 @@ function App() {
 
 
   const [username, setUsername] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [genderSelect, setGender] = useState('')
-  const [loc, setLocation] = useState('')
+  const [emailForm, setEmail] = useState('')
+  const [lastConnectionForm, setLastConnection] = useState('')
+  const [registerDone, setregisterDone] = useState(false)
+
 
   const registerNewUser = () => {
     Axios.post(hostUrl + "api/register",
       {
         name: username,
-        last_name: lastName,
-        gender: genderSelect,
-        location: loc
-      }).then(() => {
-        alert("test")
+        email: emailForm,
+        lastConnection: lastConnectionForm
+      }).then((res) => {
+        //alert("test")
+        console.log(res)
+        setregisterDone(true);
       });
   };
 
   return (
-    <Container maxWidth="lg">
-      <h1>User system .. </h1>
+    <Container maxWidth="lg" component={Paper}>
+      <h1>User system ..  </h1>
       <Grid container spacing={2}>
-        <Grid item xs="4">
+        <Grid item xs>
           sdad
 
         </Grid>
-        <Grid item xs="8">
+        <Grid item xs>
 
           <form className="" noValidate autoComplete="off">
             <TextField
               id="outlined-basic"
-              label="First name"
+              label="Username"
               variant="outlined"
               onChange={(e) => { setUsername(e.target.value) }}
             />
             <TextField
               id="outlined-basic"
-              label="Last name"
+              label="Email"
               variant="outlined"
-              onChange={(e) => { setLastName(e.target.value) }}
+              onChange={(e) => { setEmail(e.target.value) }}
             />
             <TextField
               id="outlined-basic"
-              label="Location"
+              label="lastConnection"
               variant="outlined"
-              onChange={(e) => { setGender(e.target.value) }}
+              onChange={(e) => { setLastConnection(e.target.value) }}
             />
 
-            <FormControl>
-              <InputLabel
-                id="demo-simple-select-label"
-              >
-                Gender
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={(e) => { setLocation(e.target.value) }}
-              >
-                <MenuItem value='Male'>Male</MenuItem>
-                <MenuItem value='Female'>Female</MenuItem>
-              </Select>
-            </FormControl>
 
 
             <Button variant="contained" color="primary" href="#contained-buttons" onClick={registerNewUser}>
@@ -88,7 +79,7 @@ function App() {
 
         </Grid>
       </Grid>
-      <Button variant="contained" size="small">Contained</Button>
+      <UserList registerDone={registerDone} regCallBack={setregisterDone}/>
       <Footer />
     </Container>
   );
