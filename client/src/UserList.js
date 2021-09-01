@@ -6,9 +6,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from "react";
-import { Icon } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 
@@ -19,17 +21,32 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 function UserList({ registerDone, regCallBack }) {
     const [userList, setUserList] = useState([])
 
+    const [username, setUsername] = useState('')
+    const [emailForm, setEmail] = useState('')
+
+    const editUser = () => {
+        Axios.post("http://localhost:3001/api/update",
+          {
+            name: username,
+            email: emailForm,
+          }).then((res) => {
+            console.log(res)
+            //setregisterDone(true);
+          });
+      };
+
+
     const fetchDataUsers = () => {
         console.log("fetchDataUsers called!")
         Axios.get("http://localhost:3001/api/get").then((res) => {
             setUserList(res.data)
-            
+
         })
     }
 
     const deleteUser = (userid) => {
         console.log("delete user calledd!")
-        Axios.delete(`http://localhost:3001/api/delete/${userid}`).then((res)=>{
+        Axios.delete(`http://localhost:3001/api/delete/${userid}`).then((res) => {
             fetchDataUsers()
         })
     }
@@ -38,7 +55,7 @@ function UserList({ registerDone, regCallBack }) {
 
         fetchDataUsers()
         regCallBack(false)
-       
+
     }, [registerDone]);
 
 
@@ -53,7 +70,8 @@ function UserList({ registerDone, regCallBack }) {
                         <TableCell>Username</TableCell>
                         <TableCell align="center">Email</TableCell>
                         <TableCell align="center">Last Connection</TableCell>
-                        <TableCell align="center">Delete</TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -63,6 +81,16 @@ function UserList({ registerDone, regCallBack }) {
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.last_connection}</TableCell>
+                            <TableCell>
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    color="primary"
+                                    endIcon={<EditIcon>send</EditIcon>}
+                                >
+                                    edit
+                                </Button>
+                            </TableCell>
                             <TableCell>
                                 <IconButton
                                     aria-label="delete"

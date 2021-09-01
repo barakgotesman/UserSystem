@@ -3,6 +3,7 @@ import { Button, Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import React, { useEffect, useState } from "react";
+import { Router, Link } from "@reach/router";
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,11 +14,13 @@ import Axios from 'axios';
 import Footer from './Footer';
 import UserList from './UserList.js';
 import Paper from '@material-ui/core/Paper';
-
-
+import EditUser from './EditUser';
+import Menu from './Menu';
+import Home from './Home';
+import Register from './Register';
 
 function App() {
-
+/*
   const hostUrl = "http://localhost:3001/";
 
 
@@ -39,48 +42,30 @@ function App() {
         setregisterDone(true);
       });
   };
-
+*/
   return (
-    <Container maxWidth="lg" component={Paper}>
+   
+    <Container maxWidth="lg" component={Paper} elevation={3}>
       <h1>User system ..  </h1>
-      <Grid container spacing={2}>
-        <Grid item xs>
-          sdad
+      <Grid container spacing={3}>
+        <Grid item sm={2}>
+          <Menu/>
 
         </Grid>
-        <Grid item xs>
+        <Grid item sm={10}>
+        <div>
+          <Router>
+              <Home path="/"></Home>
+              <UserList path="/showusers" registerDone={registerDone} regCallBack={setregisterDone}/>
+              <Register path="/register" />
+          </Router>
+        </div>
 
-          <form className="" noValidate autoComplete="off">
-            <TextField
-              id="outlined-basic"
-              label="Username"
-              variant="outlined"
-              onChange={(e) => { setUsername(e.target.value) }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              onChange={(e) => { setEmail(e.target.value) }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="lastConnection"
-              variant="outlined"
-              onChange={(e) => { setLastConnection(e.target.value) }}
-            />
-
-
-
-            <Button variant="contained" color="primary" href="#contained-buttons" onClick={registerNewUser}>
-              Register user
-            </Button>
-          </form>
 
         </Grid>
       </Grid>
-      <UserList registerDone={registerDone} regCallBack={setregisterDone}/>
       <Footer />
+      <EditUser user={{id:26,email:'barak@gmail.com',username:'barak'}}/>
     </Container>
   );
 }

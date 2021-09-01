@@ -17,6 +17,21 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyPaser.urlencoded({ extended: true }));
 
+// update user by id
+app.put("/api/update", (req, res)=> {
+    const userid = req.body.userid;
+    const email = req.body.email;
+    const username = req.body.username;
+    const sqlUpdateQuery = "UPDATE SET email = ?, username =? WHERE userid = ?"
+
+    db.query(sqlUpdateQuery, [email, username, userid], (err, result)=>{
+        if(err)
+            console.log(err)
+        else
+            res.send(result)
+    })
+})
+
 // delete user by user id
 app.delete('/api/delete/:userId', (req, res) => {
     const userId = req.params.userId;
