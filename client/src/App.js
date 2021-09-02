@@ -11,39 +11,41 @@ import Menu from './components/Menu';
 import Home from './pages/Home';
 import Register from './pages/Register';
 
-import { useSelector, useDispatch} from "react-redux";
-import { bindActionCreators} from "redux"
-import { actionCreators } from './state/index';
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers, deleteUserList } from './store/User/action';
 
 function App() {
 
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log("state",state.userList)
-  const { updateUserList, deleteUserList} = bindActionCreators(actionCreators, dispatch)
+  console.log("state", state.userList)
 
-  
+  const f = () => {
+    console.log("test")
+
+    dispatch(getUsers())
+  }
   return (
-   
-    <Container maxWidth="lg" component={Paper} elevation={3}>
-      <h1>User system .. {state.userList}  </h1>
 
-      <button onClick={()=>{updateUserList(232)}}>test</button>
+    <Container maxWidth="lg" component={Paper} elevation={3}>
+      <h1>User system ..   </h1>
+
+      <button onClick={f}>test</button>
 
       <Grid container spacing={3}>
         <Grid item sm={2}>
-          <Menu/>
+          <Menu />
 
         </Grid>
         <Grid item sm={10}>
-        <div>
-          <Router>
+          <div>
+            <Router>
               <Home path="/"></Home>
               <Register path="/register" />
-              <UserList path="/showusers"/>
+              <UserList path="/showusers" />
               <EditUser path="edit/:userid" />
-          </Router>
-        </div>
+            </Router>
+          </div>
 
 
         </Grid>

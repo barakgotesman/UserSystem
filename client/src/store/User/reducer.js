@@ -1,8 +1,9 @@
-const reducer = (state = 0, action) =>
+import { GET_INFO } from "./contants";
+const reducer = (state = [], action) =>
 {
     switch(action.type)
     {
-        case "update":
+        case GET_INFO:
             return action.payload;
         default:
             return state;
