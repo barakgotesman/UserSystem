@@ -11,8 +11,18 @@ import Menu from './Menu';
 import Home from './Home';
 import Register from './Register';
 
+import { useSelector, useDispatch} from "react-redux";
+import { bindActionCreators} from "redux"
+import { actionCreators } from './state/index';
+
 function App() {
 
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  console.log("state",state)
+  const { updateUserList, deleteUserList} = bindActionCreators(actionCreators, dispatch)
+
+  
   return (
    
     <Container maxWidth="lg" component={Paper} elevation={3}>
