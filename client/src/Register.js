@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -19,63 +19,61 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Register() 
-{
+function Register() {
   const classes = useStyles();
 
 
-    const hostUrl = "http://localhost:3001/";
+  const hostUrl = "http://localhost:3001/";
 
-    const [username, setUsername] = useState('')
-    const [emailForm, setEmail] = useState('')
-    const [lastConnectionForm, setLastConnection] = useState('')
-    //const [registerDone, setregisterDone] = useState(false)
+  const [username, setUsername] = useState('')
+  const [emailForm, setEmail] = useState('')
 
-    const registerNewUser = () => {
-      Axios.post(hostUrl + "api/register",
-        {
-          name: username,
-          email: emailForm,
-          lastConnection: lastConnectionForm
-        }).then((res) => {
-          console.log(res)
-          
-          //setregisterDone(true);
-        });
-    };
+  const registerNewUser = () => {
+    Axios.post(hostUrl + "api/register",
+      {
+        name: username,
+        email: emailForm
+      }).then((res) => {
+        console.log(res)
+      });
+  };
 
-    return (
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-basic"
-              label="Username"
-              variant="outlined"
-              onChange={(e) => { setUsername(e.target.value) }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              onChange={(e) => { setEmail(e.target.value) }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="lastConnection"
-              variant="outlined"
-              onChange={(e) => { setLastConnection(e.target.value) }}
-            />
+  return (
+    <form className={classes.form} noValidate autoComplete="off">
+      <Grid container spacing={2}>
+        <Grid item md={12}>
+          <TextField
+            id="outlined-basic"
+            label="Username"
+            variant="outlined"
+            onChange={(e) => { setUsername(e.target.value) }}
+          />
+        </Grid>
+        <Grid item md={12}>
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            onChange={(e) => { setEmail(e.target.value) }}
+          />
+        </Grid>
+      </Grid>
 
 
+      <Button
+        size="large"
+        variant="contained"
+        color="primary"
+        onClick={registerNewUser}
+        className={classes.submit}
+      >
+        Register user
+      </Button>
 
-            <Button variant="contained" color="primary" href="#contained-buttons" onClick={registerNewUser}>
-              Register user
-            </Button>
-
-          </form>
+    </form >
 
 
-    )
-  }
+  )
+}
 
-  export default Register;
- 
+export default Register;

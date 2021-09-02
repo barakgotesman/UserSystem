@@ -21,10 +21,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-
-
-//{ registerDone, regCallBack }
-
 function UserList() {
 
 
@@ -96,7 +92,7 @@ function UserList() {
                                     variant="outlined"
                                     color="primary"
                                     component={Link}
-                                    to='/edit/33'
+                                    to='/edit/47'
                                     endIcon={<EditIcon></EditIcon>}
                                 >
                                     edit

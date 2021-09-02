@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
-import { useRadioGroup } from '@material-ui/core';
 
 
 
@@ -22,7 +21,7 @@ function EditUser({userid}) {
             {
                 setUsername(res.data[0].name)
                 setEmail(res.data[0].email)
-                console.log("resss", )
+                console.log("information loaded" )
             }
             else
                 console.log("user not found")
@@ -32,15 +31,14 @@ function EditUser({userid}) {
     useEffect(() => {
 
         getUser(userid)
-        //regCallBack(false)
     
     }, []);
 
-    const updateUser = (user) =>
+    const updateUser = (userid) =>
     {
         console.log("updateUser function js called")
-        Axios.put("https://localhost:3001/api/update",{
-            userid: user.id,
+        Axios.put("http://localhost:3001/api/update",{
+            userid: userid,
             email: emailForm,
             username: usernameForm
         }).then((res)=>{
@@ -95,7 +93,7 @@ function EditUser({userid}) {
                     variant="contained" 
                     color="primary"
                     size="medium"
-                    onClick={()=>{updateUser("test")}}
+                    onClick={()=>{updateUser(userid)}}
                     >
                     apply changes
                     </Button>

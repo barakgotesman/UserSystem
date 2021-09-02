@@ -22,7 +22,7 @@ app.put("/api/update", (req, res)=> {
     const userid = req.body.userid;
     const email = req.body.email;
     const username = req.body.username;
-    const sqlUpdateQuery = "UPDATE SET email = ?, username =? WHERE userid = ?"
+    const sqlUpdateQuery = "UPDATE users SET email = ?, name = ? WHERE id = ?"
 
     db.query(sqlUpdateQuery, [email, username, userid], (err, result)=>{
         if(err)
@@ -61,13 +61,13 @@ app.get('/api/get', (req, res) => {
     });
 });
 
+// register new user
 app.post('/api/register', (req, res) => {
     const userName = req.body.name;
     const email = req.body.email;
-    const lastConnection = req.body.lastConnection;
     const sqlQueryInsert =
-        "INSERT INTO `users` (name,email,last_connection) VALUES(?,?,?)";
-    db.query(sqlQueryInsert, [userName, email, lastConnection], (err, result) => {
+        "INSERT INTO `users` (name,email,last_connection) VALUES(?,?,'')";
+    db.query(sqlQueryInsert, [userName, email], (err, result) => {
         if (err)
             console.log(err);
         res.send(result);
