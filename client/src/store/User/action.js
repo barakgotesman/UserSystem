@@ -1,42 +1,60 @@
-import { GET_INFO } from "./contants";
+import { DELETE_USER, GET_INFO } from "./contants";
 import Axios from "axios";
 
-export const getUsers = async()  => {
-    try {
-        const res = await Axios.get("http://localhost:3001/api/users")
+export const getUsers = () => (dispatch, getState) => {
+    console.log("getState",getState,"dispatch",dispatch)
+    Axios.get("http://localhost:3001/api/users").then((res) => {
         if (res.status >= 200 && res.status < 300) {
-            console.log("test",res.data)
 
-            return (dispatch) => {
-                dispatch({
-                    type: GET_INFO,
-                    payload: res.data
-                })
-            }
+            dispatch({
+                type: GET_INFO,
+                payload: res.data
+            })
+
         }
         else {
-            return (dispatch) => {
-                dispatch({
-                    type: GET_INFO,
-                    payload: "error server " + res.status
-                })
-            }
+            dispatch({
+                type: GET_INFO,
+                payload: "error server " + res.status
+            })
+
+
         }
-
-    }
-    catch (err) {
-
-    }
-
-
-
-}
-
-export const deleteUserList = (newList) => {
-    return (dispatch) => {
+    }).catch((e)=>{
         dispatch({
-            type: "delete",
-            payload: []
+            type: GET_INFO,
+            payload: "error while sending the req "+e
         })
-    }
+    })
 }
+
+
+export const deleteUser = (userid) => (dispatch, getState) => {
+    console.log("userid:",userid)
+    Axios.delete(`http://localhost:3001/api/users/${userid}`).then((res) => {
+        if (res.status >= 200 && res.status < 300) {
+
+            dispatch({
+                type: DELETE_USER,
+                payload: res.data
+            })
+
+        }
+        else {
+            dispatch({
+                type: DELETE_USER,
+                payload: "error server " + res.status
+            })
+
+
+        }
+    }).catch((e)=>{
+        dispatch({
+            type: DELETE_USER,
+            payload: "error while sending the req "+e
+        })
+    })
+}
+
+
+

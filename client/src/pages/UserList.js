@@ -15,10 +15,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Messase from "../components/Message"
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers, deleteUser } from '../store/User/action';
+import Message from "../components/Message";
 
 function UserList() {
     const [userList, setUserList] = useState([])
+    const [messageState, setMessageState] = useState({ isOpen: false, content: '' })
     const [userid, setUserId] = useState(0)
+    const state = useSelector((state) => state);
+    console.log("test", state)
+    const dispatch = useDispatch();
+
     // for dialog "are you sure?"
     const [open, setOpen] = useState(false);
     const handleClickOpen = (uid) => {
@@ -41,21 +50,22 @@ function UserList() {
             })
         }
 
-    const deleteUser = () => {
+    const handleConfimDelete = () => {
         console.log("delete user calledd!", userid)
-        Axios.delete(`http://localhost:3001/api/users/${userid}`).then((res) => {
-            fetchDataUsers()
-            handleClose()
-        })
-
+        dispatch(deleteUser(userid))
+        handleClose()
     }
 
     useEffect(() => {
-        fetchDataUsers()
-    }, []);
+        dispatch(getUsers())
+        if (state.result.deleteSuccess) {
+            setMessageState({ isOpen: true, content: 'delete done' })
+        }
+    }, [state.result.deleteSuccess]);
 
     return (
         <div>
+
             <TableContainer >
                 <TableHead>
                     <TableRow>
@@ -68,7 +78,7 @@ function UserList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {userList.map((user) =>
+                    {state.result.userList.map((user) =>
                         <TableRow key={user.id}>
                             <TableCell>{user.id}</TableCell>
                             <TableCell>{user.name}</TableCell>
@@ -117,12 +127,16 @@ function UserList() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={deleteUser} color="primary" autoFocus>
+                    <Button onClick={handleConfimDelete} color="primary" autoFocus>
                         Yes, delete user
                     </Button>
                 </DialogActions>
             </Dialog>
-
+            <Messase
+                open={messageState.isOpen}
+                content={messageState.content}
+                setMessageShow={setMessageState}
+            />
         </div>
     )
 }

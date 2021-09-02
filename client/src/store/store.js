@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import getUsers from "./User/reducer";
+import UserReducer from "./User/reducer";
 import { createStore , applyMiddleware} from 'redux';
 import thunk from "redux-thunk";
 
 const reducers = combineReducers({
-    userList: getUsers
+    result: UserReducer
 });
 
 
