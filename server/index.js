@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(bodyPaser.urlencoded({ extended: true }));
 
 // update user by id
-app.put("/api/update", (req, res)=> {
+app.put("/api/users", (req, res)=> {
     const userid = req.body.userid;
     const email = req.body.email;
     const username = req.body.username;
@@ -33,7 +33,7 @@ app.put("/api/update", (req, res)=> {
 })
 
 // delete user by user id
-app.delete('/api/delete/:userid', (req, res) => {
+app.delete('/api/users/:userid', (req, res) => {
     const userId = req.params.userid;
     const sqlDeleteQuery = "DELETE FROM users WHERE id = ?";
     db.query(sqlDeleteQuery, userId, (err, result) => {
@@ -45,7 +45,7 @@ app.delete('/api/delete/:userid', (req, res) => {
 })
 
 // get user by id
-app.get('/api/get/:userid', (req, res) => {
+app.get('/api/users/:userid', (req, res) => {
     const userId = req.params.userid;
     const sqlQuery = `SELECT * FROM users WHERE id = ?`;
     db.query(sqlQuery, userId, (err, result) => {
@@ -54,7 +54,7 @@ app.get('/api/get/:userid', (req, res) => {
 });
 
 // get all users from users table
-app.get('/api/get', (req, res) => {
+app.get('/api/users', (req, res) => {
     const sqlQuery = `SELECT * FROM users`;
     db.query(sqlQuery, (err, result) => {
         res.send(result);

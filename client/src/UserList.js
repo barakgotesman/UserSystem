@@ -16,10 +16,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-function UserList() 
-{
+function UserList() {
     const [userList, setUserList] = useState([])
-
     const [userid, setUserId] = useState(0)
     // for dialog "are you sure?"
     const [open, setOpen] = useState(false);
@@ -34,11 +32,10 @@ function UserList()
         setUserId(0);
     };
 
-
     const fetchDataUsers =
         () => {
             console.log("fetchDataUsers called!")
-            Axios.get("http://localhost:3001/api/get").then((res) => {
+            Axios.get("http://localhost:3001/api/users").then((res) => {
                 setUserList(res.data)
 
             })
@@ -46,17 +43,15 @@ function UserList()
 
     const deleteUser = () => {
         console.log("delete user calledd!", userid)
-        Axios.delete(`http://localhost:3001/api/delete/${userid}`).then((res) => {
+        Axios.delete(`http://localhost:3001/api/users/${userid}`).then((res) => {
             fetchDataUsers()
             handleClose()
         })
-        
+
     }
 
     useEffect(() => {
-
         fetchDataUsers()
-
     }, []);
 
     return (
@@ -94,7 +89,7 @@ function UserList()
                             <TableCell>
                                 <IconButton
                                     aria-label="delete"
-                                    onClick={() => {handleClickOpen(user.id)}}>
+                                    onClick={() => { handleClickOpen(user.id) }}>
                                     <HighlightOffIcon color="error" />
                                 </IconButton>
                             </TableCell>
@@ -114,8 +109,8 @@ function UserList()
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                    This action cannot be undone, 
-                    are you sure you want to delete this user?
+                        This action cannot be undone,
+                        are you sure you want to delete this user?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

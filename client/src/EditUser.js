@@ -22,7 +22,7 @@ function EditUser({ userid }) {
 
     const getUser = (userid) => {
         console.log("getUser called!")
-        Axios.get(`http://localhost:3001/api/get/${userid}`).then((res) => {
+        Axios.get(`http://localhost:3001/api/users/${userid}`).then((res) => {
             if (res.data[0]) {
                 setUsername(res.data[0].name)
                 setEmail(res.data[0].email)
@@ -41,7 +41,7 @@ function EditUser({ userid }) {
 
     const updateUser = (userid) => {
         console.log("updateUser function js called")
-        Axios.put("http://localhost:3001/api/update", {
+        Axios.put("http://localhost:3001/api/users", {
             userid: userid,
             email: emailForm,
             username: usernameForm

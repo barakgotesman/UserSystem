@@ -23,13 +23,12 @@ function Register() {
   const classes = useStyles();
 
 
-  const hostUrl = "http://localhost:3001/";
 
   const [username, setUsername] = useState('')
   const [emailForm, setEmail] = useState('')
 
   const registerNewUser = () => {
-    Axios.post(hostUrl + "api/register",
+    Axios.post("http://localhost:3001/api/register",
       {
         name: username,
         email: emailForm
