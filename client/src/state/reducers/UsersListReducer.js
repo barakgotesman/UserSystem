@@ -3,7 +3,7 @@ const reducer = (state = 0, action) =>
     switch(action.type)
     {
         case "update":
-            return action.value;
+            return action.payload;
         default:
             return state;
         
