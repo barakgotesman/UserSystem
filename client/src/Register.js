@@ -34,7 +34,10 @@ function Register() {
         name: username,
         email: emailForm
       }).then((res) => {
-        console.log(res)
+        if(res.status>=200 && res.status<300)
+          console.log("register done")
+        else
+          console.log("The server reported an error: status",res.status)
       });
   };
 

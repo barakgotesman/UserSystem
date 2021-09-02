@@ -68,16 +68,10 @@ app.post('/api/register', (req, res) => {
     const sqlQueryInsert =
         "INSERT INTO `users` (name,email,last_connection) VALUES(?,?,'')";
     db.query(sqlQueryInsert, [userName, email], (err, result) => {
-        if (err)
-            console.log(err);
-        res.send(result);
-        console.log(result);
+       res.send(result)
     });
 });
 
-app.get('/', (req, res) => {
-    res.send("test ")
-});
 
 app.listen(3001, () => {
     console.log("running on port 3001");
