@@ -1,30 +1,23 @@
 import Axios from "axios";
-import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from "react";
-import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link, Router } from "@reach/router";
-
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
-function UserList() {
-
-
-
+function UserList() 
+{
     const [userList, setUserList] = useState([])
 
     const [userid, setUserId] = useState(0)
@@ -92,7 +85,7 @@ function UserList() {
                                     variant="outlined"
                                     color="primary"
                                     component={Link}
-                                    to='/edit/47'
+                                    to={`/edit/${user.id}`}
                                     endIcon={<EditIcon></EditIcon>}
                                 >
                                     edit
@@ -109,11 +102,6 @@ function UserList() {
                     )}
                 </TableBody>
             </TableContainer>
-            <Icon className="fa fa-plus-circle" />
-
-
-
-
 
             <Dialog
                 open={open}
