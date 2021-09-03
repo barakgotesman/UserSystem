@@ -5,8 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, Router } from "@reach/router";
+import { Link } from "@reach/router";
 
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from '../store/User/action';
+import * as MessageActions from '../store/Message/action';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -15,8 +18,15 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
+  const initialEditValues={
+    name:'',
+    email:''
+  }
+
 function EditUser({ userid }) {
     const classes = useStyles();
+
+    const [editForm, setEditForm] = useState(initialEditValues)
     const [usernameForm, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
 
