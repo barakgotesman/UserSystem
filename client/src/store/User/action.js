@@ -1,4 +1,4 @@
-import { DELETE_USER, GET_INFO } from "./contants";
+import { DELETE_USER, GET_INFO, USER_NOT_FOUND, USER_SELECTED } from "./contants";
 import * as MessageActions from '../Message/action';
 import Axios from "axios";
 
@@ -27,17 +27,39 @@ export const getUsers = () => (dispatch, getState) => {
 export const getUser = (userid) => (dispatch, getSate) => {
     Axios.get(`http://localhost:3001/api/users/${userid}`).then((res) => {
         if (res.status >= 200 && res.status < 300) {
-            if (res.date[0]) {
-                //user found
+            console.log("res.data.legnth", res.data)
+            if (res.data.length) {
+                console.log("we have data")
+                dispatch({
+                    type: USER_SELECTED,
+                    payload: res.data[0]
+                });
             }
             else {
                 dispatch(MessageActions.setMessage(
-                    'server error - ' + res.status, 'error')
+                    'User with ID:' + userid + " not found.", 'error')
                 );
+                dispatch(
+                    {
+                        type: USER_NOT_FOUND,
+                        payload: {}
+                    }
+                );
+                
             }
         }
+        else {
+            dispatch(MessageActions.setMessage(
+                'server error - ' + res.status, 'error')
+            );
+        }
 
-    }
+    }).catch((e) => {
+        dispatch(MessageActions.setMessage(
+            'error ' + e, 'error')
+        );
+
+    })
 }
 
 export const updateUser = (user) => (dispatch, getSate) => {

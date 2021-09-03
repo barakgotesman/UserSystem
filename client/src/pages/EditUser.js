@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from "@reach/router";
+import { Link, Redirect } from "@reach/router";
 
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from '../store/User/action';
+import { updateUser,getUser } from '../store/User/action';
 import * as MessageActions from '../store/Message/action';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,32 +25,26 @@ const useStyles = makeStyles((theme) => ({
 
 function EditUser({ userid }) {
     const classes = useStyles();
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     const [editForm, setEditForm] = useState(initialEditValues)
+
     const [usernameForm, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
 
-    const getUser = (userid) => {
-        console.log("getUser called!")
-        Axios.get(`http://localhost:3001/api/users/${userid}`).then((res) => {
-            if (res.data[0]) {
-                setUsername(res.data[0].name)
-                setEmail(res.data[0].email)
-                console.log("information loaded")
-            }
-            else
-                console.log("user not found")
-        })
+    if(Object.keys(state.result.editUser)==0)
+    {
+        Redirect()
     }
 
     useEffect(() => {
 
-        getUser(userid)
-
+        dispatch(getUser(userid))
+        
     }, []);
 
     const updateUser = (userid) => {
-        console.log("updateUser function js called")
         Axios.put("http://localhost:3001/api/users", {
             userid: userid,
             email: emailForm,
@@ -79,25 +73,26 @@ function EditUser({ userid }) {
 
                     />
                 </Grid>
+                {JSON.stringify(state.result.editUser)}
                 <Grid item sm={10}>
                     <TextField
-                        value={emailForm}
+                        value={editForm.name}
                         variant="outlined"
                         fullWidth
                         label="Email"
                         onChange={(e) => {
-                            setEmail(e.target.value)
+                            setEditForm({...editForm, email: e.target.value})
                         }}
                     />
                 </Grid>
                 <Grid item sm={12}>
                     <TextField
-                        value={usernameForm}
+                        value={editForm.username}
                         variant="outlined"
                         fullWidth
                         label="Username"
                         onChange={(e) => {
-                            setUsername(e.target.value)
+                            setEditForm({...editForm, name: e.target.value})
                         }}
 
                     />

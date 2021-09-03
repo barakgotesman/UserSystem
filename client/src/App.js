@@ -1,6 +1,13 @@
 import './App.css';
 import React, { useEffect, useState } from "react";
-import { Router, Link } from "@reach/router";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUserList } from './store/User/action';
@@ -46,12 +53,18 @@ function App() {
         </Grid>
         <Grid item sm={10}>
           <div>
-            <Router>
-              <Home path="/"></Home>
+            <Switch>
+              <Route path="/">
+                <Home />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+              
               <Register path="/register" />
               <UserList path="/showusers" />
               <EditUser path="edit/:userid" />
-            </Router>
+            </Switch>
           </div>
 
 
