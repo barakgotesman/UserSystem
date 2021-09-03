@@ -14,6 +14,7 @@ export const getUsers = () => (dispatch, getState) => {
         }
         else {
             dispatch({
+                
                 type: GET_INFO,
                 payload: "error server " + res.status
             })

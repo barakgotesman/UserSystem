@@ -7,23 +7,23 @@ const initMessage = {
     isOpen: false
 }
 
-const reducer = (state = initMessage, action) =>
-{
-    switch (action.type)
-    {
-    case HIDE_MESSAGE:
-        return {
-            ...state,
-             isOpen: false
-            }
-    case SET_MESSAGE:
-        return {
-            ...state,
-            isOpen: ture,
-            time: action.payload.time,
-            content: action.payload.content,
-            kind: action.payload.kind;
-        }
+const reducer = (state = initMessage, action) => {
+    switch (action.type) {
+        case HIDE_MESSAGE:
+            return {
+                ...state,
+                isOpen: false
+            };
+        case SET_MESSAGE:
+            return {
+                ...state,
+                isOpen: Boolean(true),
+                time: action.payload.time,
+                content: action.payload.content,
+                kind: action.payload.kind
+            };
+        default:
+            return state;
     }
 
 }

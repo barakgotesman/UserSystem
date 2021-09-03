@@ -10,6 +10,7 @@ import EditUser from './pages/EditUser';
 import Menu from './components/Menu';
 import Home from './pages/Home';
 import Register from './pages/Register';
+import Message from './components/Message';
 
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUserList } from './store/User/action';
@@ -28,6 +29,7 @@ function App() {
   return (
 
     <Container maxWidth="lg" component={Paper} elevation={3}>
+      <Message/>
       <h1>User system ..   </h1>
 
       <button onClick={f}>test</button>

@@ -16,9 +16,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Messase from "../components/Message"
+
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUser } from '../store/User/action';
-import Message from "../components/Message";
+import * as MessageActions from '../store/Message/action';
+
 
 function UserList() {
     const [userList, setUserList] = useState([])
@@ -59,7 +61,10 @@ function UserList() {
     useEffect(() => {
         dispatch(getUsers())
         if (state.result.deleteSuccess) {
-            setMessageState({ isOpen: true, content: 'delete done' })
+            // setMessageState({ isOpen: true, content: 'delete done' })
+            dispatch(MessageActions.setMessage(
+                'test','success',6000)
+            );
         }
     }, [state.result.deleteSuccess]);
 
