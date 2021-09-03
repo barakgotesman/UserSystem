@@ -17,7 +17,7 @@ const reducer = (state = initMessage, action) => {
         case SET_MESSAGE:
             return {
                 ...state,
-                isOpen: Boolean(true),
+                isOpen: true,
                 time: action.payload.time,
                 content: action.payload.content,
                 kind: action.payload.kind

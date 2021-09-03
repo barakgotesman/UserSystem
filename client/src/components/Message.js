@@ -20,18 +20,18 @@ function Message() {
             return
 
         dispatch(
-            messageState.HideMessage()
+            HideMessage()
         )
     }
 
     return (
         <div>
             <Snackbar
-                open={messageState.isOpen}
-                autoHideDuration={6000}
+                open={messageState.message.isOpen}
+                autoHideDuration={messageState.message.time}
                 onClose={handleClose}>
-                <Alert onClose={handleClose} severity={messageState.kind}>
-                    {messageState.content}
+                <Alert onClose={handleClose} severity={messageState.message.kind}>
+                    {messageState.message.content}
                 </Alert>
             </Snackbar>
         </div>

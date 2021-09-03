@@ -63,13 +63,19 @@ function UserList() {
         if (state.result.deleteSuccess) {
             // setMessageState({ isOpen: true, content: 'delete done' })
             dispatch(MessageActions.setMessage(
-                'test','success',6000)
+                'test','success',2000)
             );
         }
     }, [state.result.deleteSuccess]);
 
     return (
         <div>
+            <button onClick={()=>{ dispatch(MessageActions.setMessage(
+                'test','success',6000)
+            );}}>Test</button>
+            <button onClick={()=>{ dispatch(MessageActions.setMessage(
+                'test222','error',1000)
+            );}}>Test</button>
 
             <TableContainer >
                 <TableHead>

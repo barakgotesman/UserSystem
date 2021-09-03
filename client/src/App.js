@@ -1,19 +1,24 @@
 import './App.css';
-import { Button, Container } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
 import React, { useEffect, useState } from "react";
 import { Router, Link } from "@reach/router";
-import Footer from './components/Footer';
-import UserList from './pages/UserList.js';
-import Paper from '@material-ui/core/Paper';
-import EditUser from './pages/EditUser';
-import Menu from './components/Menu';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Message from './components/Message';
 
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUserList } from './store/User/action';
+
+import { Button, Container } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+import Menu from './components/Menu';
+import Message from './components/Message';
+import Footer from './components/Footer';
+
+import EditUser from './pages/EditUser';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import UserList from './pages/UserList.js';
+
+
 
 function App() {
 
