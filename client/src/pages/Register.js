@@ -37,6 +37,7 @@ function Register()
 
   const registerNewUser =()=>{
     dispatch(newUser(registerForm))
+    setRegisterState(initialRegisterValues)
   }
 
 
@@ -49,6 +50,7 @@ function Register()
             id="outlined-basic"
             label="Username"
             variant="outlined"
+            value={registerForm.name}
             onChange={(e) => { setRegisterState({...registerForm, name: e.target.value}) }}
           />
         </Grid>
@@ -57,6 +59,7 @@ function Register()
             id="outlined-basic"
             label="Email"
             variant="outlined"
+            value = {registerForm.email}
             onChange={(e) => { setRegisterState({...registerForm, email: e.target.value}) }}
           />
         </Grid>
