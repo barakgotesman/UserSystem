@@ -1,4 +1,3 @@
-import Axios from "axios";
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -15,7 +14,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Messase from "../components/Message"
 
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUser } from '../store/User/action';
@@ -23,11 +21,8 @@ import * as MessageActions from '../store/Message/action';
 
 
 function UserList() {
-    const [userList, setUserList] = useState([])
-    const [messageState, setMessageState] = useState({ isOpen: false, content: '' })
     const [userid, setUserId] = useState(0)
     const state = useSelector((state) => state);
-    console.log("test", state)
     const dispatch = useDispatch();
 
     // for dialog "are you sure?"
@@ -35,7 +30,6 @@ function UserList() {
     const handleClickOpen = (uid) => {
         setUserId(uid)
         setOpen(true);
-
     };
 
     const handleClose = () => {
@@ -43,27 +37,14 @@ function UserList() {
         setUserId(0);
     };
 
-    const fetchDataUsers =
-        () => {
-            console.log("fetchDataUsers called!")
-            Axios.get("http://localhost:3001/api/users").then((res) => {
-                setUserList(res.data)
-
-            })
-        }
 
     const handleConfimDelete = () => {
-        console.log("delete user calledd!", userid)
         dispatch(deleteUser(userid))
         handleClose()
     }
 
     useEffect(() => {
         dispatch(getUsers())
-        if (state.result.deleteSuccess) {
-            // setMessageState({ isOpen: true, content: 'delete done' })
-           
-        }
     }, [state.result.deleteSuccess]);
 
     return (
@@ -141,11 +122,7 @@ function UserList() {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Messase
-                open={messageState.isOpen}
-                content={messageState.content}
-                setMessageShow={setMessageState}
-            />
+
         </div>
     )
 }

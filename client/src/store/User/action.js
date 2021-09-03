@@ -30,9 +30,38 @@ export const getUsers = () => (dispatch, getState) => {
     })
 }
 
-export const newUser ()
+export const newUser = (user) => (dispatch, getState) =>
+{
+    Axios.post("http://localhost:3001/api/register",
+    {
+        name: user.name,
+        email: user.email
+    }).then((res)=>{
+        if (res.status >= 200 && res.status < 300) 
+        {
+            dispatch(MessageActions.setMessage(
+                'User register done!','success')
+            );
+        }
+        else
+        {
+            dispatch(MessageActions.setMessage(
+                'server error - '+res.status,'error')
+            );
+        }
+
+    }).catch((e)=>{
+        dispatch(MessageActions.setMessage(
+            'error '+e,'error')
+        );
+
+    })
+
+
+}
+
+
 export const deleteUser = (userid) => (dispatch, getState) => {
-    console.log("userid:",userid)
 
     Axios.delete(`http://localhost:3001/api/users/${userid}`).then((res) => {
         if (res.status >= 200 && res.status < 300) {
@@ -56,7 +85,7 @@ export const deleteUser = (userid) => (dispatch, getState) => {
     }).catch((e)=>{
 
         dispatch(MessageActions.setMessage(
-            'error '+e,'success',2000)
+            'error '+e,'error')
         );
 
     })

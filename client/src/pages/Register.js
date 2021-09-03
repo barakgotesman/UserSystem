@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Axios from 'axios';
+
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+
+import { useSelector, useDispatch } from "react-redux";
+import { newUser } from '../store/User/action';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -16,39 +19,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const initialRegisterValues={
+  name:'',
+  email:''
+}
 
 
 
-function Register() {
+function Register() 
+{
   const classes = useStyles();
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
 
+  const [ registerForm, setRegisterState] = useState(initialRegisterValues)
 
-  const [username, setUsername] = useState('')
-  const [emailForm, setEmail] = useState('')
+  const registerNewUser =()=>{
+    dispatch(newUser(registerForm))
+  }
 
-  const registerNewUser = () => {
-    Axios.post("http://localhost:3001/api/register",
-      {
-        name: username,
-        email: emailForm
-      }).then((res) => {
-        if(res.status>=200 && res.status<300)
-          console.log("register done")
-        else
-          console.log("The server reported an error: status",res.status)
-      });
-  };
 
   return (
     <form className={classes.form} noValidate autoComplete="off">
       <Grid container spacing={2}>
+        {JSON.stringify(registerForm)}
         <Grid item md={12}>
           <TextField
             id="outlined-basic"
             label="Username"
             variant="outlined"
-            onChange={(e) => { setUsername(e.target.value) }}
+            onChange={(e) => { setRegisterState({...registerForm, name: e.target.value}) }}
           />
         </Grid>
         <Grid item md={12}>
@@ -56,7 +57,7 @@ function Register() {
             id="outlined-basic"
             label="Email"
             variant="outlined"
-            onChange={(e) => { setEmail(e.target.value) }}
+            onChange={(e) => { setRegisterState({...registerForm, email: e.target.value}) }}
           />
         </Grid>
       </Grid>
