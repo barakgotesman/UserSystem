@@ -1,10 +1,11 @@
 import { DELETE_USER, GET_INFO, USER_NOT_FOUND, USER_SELECTED } from "./contants";
 import * as MessageActions from '../Message/action';
 import Axios from "axios";
+import { WEB_URL } from '.../utils/index';
 
 export const getUsers = () => (dispatch, getState) => {
     console.log("getState", getState, "dispatch", dispatch)
-    Axios.get("http://localhost:3001/api/users").then((res) => {
+    Axios.get(WEB_URL + "users").then((res) => {
         if (res.status >= 200 && res.status < 300) {
 
             dispatch({
@@ -31,7 +32,7 @@ export const getUser = (userid) => (dispatch, getSate) => {
                 console.log("we have data")
                 dispatch({
                     type: USER_SELECTED,
-                    payload: res.data[0]
+                    payload: { ...res.data[0], userfound: true }
                 });
             }
             else {
@@ -41,7 +42,7 @@ export const getUser = (userid) => (dispatch, getSate) => {
                 dispatch(
                     {
                         type: USER_NOT_FOUND,
-                        payload: USER_NOT_FOUND
+                        payload: { userfound: false }
                     }
                 );
 
@@ -62,7 +63,7 @@ export const getUser = (userid) => (dispatch, getSate) => {
 }
 
 export const updateUser = (user) => (dispatch, getSate) => {
-
+    Axios.put()
 }
 
 
