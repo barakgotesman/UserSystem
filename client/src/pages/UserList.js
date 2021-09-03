@@ -62,9 +62,7 @@ function UserList() {
         dispatch(getUsers())
         if (state.result.deleteSuccess) {
             // setMessageState({ isOpen: true, content: 'delete done' })
-            dispatch(MessageActions.setMessage(
-                'test','success',2000)
-            );
+           
         }
     }, [state.result.deleteSuccess]);
 
