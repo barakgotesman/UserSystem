@@ -26,7 +26,7 @@ app.put("/api/users", (req, res)=> {
 
     db.query(sqlUpdateQuery, [email, username, userid], (err, result)=>{
         if(err)
-            console.log(err)
+            res.send(err)
         else
             res.send(result)
     })
@@ -38,7 +38,7 @@ app.delete('/api/users/:userid', (req, res) => {
     const sqlDeleteQuery = "DELETE FROM users WHERE id = ?";
     db.query(sqlDeleteQuery, userId, (err, result) => {
         if (err)
-            {console.log(err)}
+            {res.send(err)}
         else
             {res.send(result)}
     })

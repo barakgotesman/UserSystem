@@ -6,7 +6,6 @@ const inalize = {
     editUser: {},
 }
 const reducer = (state = inalize, action) => {
-    console.log("state", state, "action", action)
     switch (action.type) {
         case GET_INFO:
             return { ...state, userList: action.payload };

@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
-import { Link, Router } from "@reach/router";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -19,6 +18,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUser } from '../store/User/action';
 import * as MessageActions from '../store/Message/action';
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+  } from "react-router-dom";
 
 function UserList() {
     const [userid, setUserId] = useState(0)

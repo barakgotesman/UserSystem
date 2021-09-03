@@ -27,7 +27,6 @@ export const getUsers = () => (dispatch, getState) => {
 export const getUser = (userid) => (dispatch, getSate) => {
     Axios.get(`http://localhost:3001/api/users/${userid}`).then((res) => {
         if (res.status >= 200 && res.status < 300) {
-            console.log("res.data.legnth", res.data)
             if (res.data.length) {
                 console.log("we have data")
                 dispatch({
@@ -42,10 +41,10 @@ export const getUser = (userid) => (dispatch, getSate) => {
                 dispatch(
                     {
                         type: USER_NOT_FOUND,
-                        payload: {}
+                        payload: USER_NOT_FOUND
                     }
                 );
-                
+
             }
         }
         else {

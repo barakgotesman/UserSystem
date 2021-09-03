@@ -5,25 +5,36 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, Redirect } from "@reach/router";
+import { ChangePage }  from '../utils/index'
 
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser,getUser } from '../store/User/action';
+import { updateUser, getUser } from '../store/User/action';
 import * as MessageActions from '../store/Message/action';
+
+import { USER_NOT_FOUND } from '../store/User/contants'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams,
+    Redirect
+  } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
-      margin: theme.spacing(1),
+        margin: theme.spacing(1),
     },
-  }));
+}));
 
 
-  const initialEditValues={
-    name:'',
-    email:''
-  }
+const initialEditValues = {
+    name: '',
+    email: ''
+}
 
-function EditUser({ userid }) {
+function EditUser() {
+    const { userid } = useParams();
     const classes = useStyles();
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -33,15 +44,11 @@ function EditUser({ userid }) {
     const [usernameForm, setUsername] = useState('')
     const [emailForm, setEmail] = useState('')
 
-    if(Object.keys(state.result.editUser)==0)
-    {
-        Redirect()
-    }
-
+  
     useEffect(() => {
-
+        console.log("use effect edit user")
         dispatch(getUser(userid))
-        
+
     }, []);
 
     const updateUser = (userid) => {
@@ -53,6 +60,11 @@ function EditUser({ userid }) {
             console.log("editUser function", res)
         })
     };
+
+    if (state.result.editUser == USER_NOT_FOUND) {
+        return <Redirect to="/showusers" />
+        //ChangePage('/showusers')
+    }
 
     return (
 
@@ -81,7 +93,7 @@ function EditUser({ userid }) {
                         fullWidth
                         label="Email"
                         onChange={(e) => {
-                            setEditForm({...editForm, email: e.target.value})
+                            setEditForm({ ...editForm, email: e.target.value })
                         }}
                     />
                 </Grid>
@@ -92,7 +104,7 @@ function EditUser({ userid }) {
                         fullWidth
                         label="Username"
                         onChange={(e) => {
-                            setEditForm({...editForm, name: e.target.value})
+                            setEditForm({ ...editForm, name: e.target.value })
                         }}
 
                     />
@@ -106,12 +118,12 @@ function EditUser({ userid }) {
                     >
                         apply changes
                     </Button>
-                    <Button 
-                    variant="outlined" 
-                    color="secondary" 
-                    className={classes.button}
-                    component={Link}
-                    to= "/showusers"
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.button}
+                        component={Link}
+                        to="/showusers"
                     >
                         Back
                     </Button>

@@ -13,7 +13,6 @@ function Alert(props) {
 function Message() {
     const dispatch = useDispatch();
     const messageState = useSelector(state => state);
-    console.log("messageState:", messageState)
 
     function handleClose(e, reason) {
         if (reason === 'clickaway')

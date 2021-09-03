@@ -31,46 +31,43 @@ function App() {
 
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log("state", state.userList)
 
-  const f = () => {
-    console.log("test")
 
-    dispatch(getUsers())
-  }
   return (
 
     <Container maxWidth="lg" component={Paper} elevation={3}>
-      <Message/>
-      <h1>User system ..   </h1>
+     
+        <Message />
+        <h1>User system ..   </h1>
 
-      <button onClick={f}>test</button>
 
-      <Grid container spacing={3}>
-        <Grid item sm={2}>
-          <Menu />
+        <Grid container spacing={3}>
+          <Grid item sm={2}>
+            <Menu />
 
+          </Grid>
+          <Grid item sm={10}>
+            <div>
+
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/register"  component={Register} />
+                <Route path="/edit/:userid"  component={EditUser} />
+                <Route path="/showusers"  component={UserList} />
+
+             
+                {/* <Route path="edit/:userid">
+                  <EditUser />
+                </Route> */}
+              </Switch >
+
+            </div>
+
+
+          </Grid>
         </Grid>
-        <Grid item sm={10}>
-          <div>
-            <Switch>
-              <Route path="/">
-                <Home />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-              
-              <Register path="/register" />
-              <UserList path="/showusers" />
-              <EditUser path="edit/:userid" />
-            </Switch>
-          </div>
-
-
-        </Grid>
-      </Grid>
-      <Footer />
+        <Footer />
+      
     </Container>
   );
 }
