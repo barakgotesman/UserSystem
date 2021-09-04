@@ -2,7 +2,8 @@ import React from 'react';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import * as UIDialogActions from '../../store/UI/action';
+import * as UIDialogActions from '../store/UI/action';
+import { deleteUser } from '../store/User/action';
 
 // material ui
 import Dialog from '@material-ui/core/Dialog';
@@ -21,7 +22,15 @@ function DialogWindow() {
         dispatch(UIDialogActions.toggleVisable());
     }
 
+    const handleConfimDelete = () => {
+        dispatch(deleteUser(DialogSelector.userid))
+        handleClose()
+    }
 
+    const test = () =>
+    {
+        dispatch(UIDialogActions.toggleVisable());
+    }
     return (
         <div>
             <Button onClick={test}>TEST</Button>
@@ -44,7 +53,10 @@ function DialogWindow() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={UIDialogActions.toggleConfirm} color="primary" autoFocus>
+                    <Button 
+                    onClick={handleConfimDelete} 
+                    color="primary" 
+                    autoFocus>
                         Yes, delete user
                     </Button>
                 </DialogActions>

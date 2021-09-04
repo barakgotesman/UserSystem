@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 //components
-import DialogWindow from "../components/userList/DialogWindow";
+import DialogWindow from "../components/DialogWindow";
+import UserRow from "../components/UserRow"
 
 // material ui
 import TableBody from '@material-ui/core/TableBody';
@@ -9,45 +10,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, deleteUser } from '../store/User/action';
-
-import { Link } from "react-router-dom";
+import { getUsers } from '../store/User/action';
 
 function UserList() {
-    const [userid, setUserId] = useState(0)
+    
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
-
-    // for dialog "are you sure?"
-    const [open, setOpen] = useState(false);
-    const handleClickOpen = (uid) => {
-        setUserId(uid)
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-        setUserId(0);
-    };
-
-
-    const handleConfimDelete = () => {
-        dispatch(deleteUser(userid))
-        handleClose()
-    }
-
+ 
     useEffect(() => {
         dispatch(getUsers())
     }, [state.result.deleteSuccess]);
@@ -66,62 +38,14 @@ function UserList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {state.result.userList.map((user) =>
-                        <TableRow key={user.id}>
-                            <TableCell>{user.id}</TableCell>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.last_connection}</TableCell>
-                            <TableCell>
-                                <Button
-                                    size="small"
-                                    variant="outlined"
-                                    color="primary"
-                                    component={Link}
-                                    to={`/edit/${user.id}`}
-                                    endIcon={<EditIcon></EditIcon>}
-                                >
-                                    edit
-                                </Button>
-                            </TableCell>
-                            <TableCell>
-                                <IconButton
-                                    aria-label="delete"
-                                    onClick={() => { handleClickOpen(user.id) }}>
-                                    <HighlightOffIcon color="error" />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                    )}
+                    {
+                    state.result.userList.map((user) =>
+                        <UserRow user={user} />
+                    )
+                    }
                 </TableBody>
             </TableContainer>
             <DialogWindow/>
-            
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    Hi there, pay attention
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        This action cannot be undone,
-                        are you sure you want to delete this user?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleConfimDelete} color="primary" autoFocus>
-                        Yes, delete user
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
         </div>
     )
 }

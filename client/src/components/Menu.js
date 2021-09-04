@@ -17,9 +17,7 @@ function Menu() {
   const classes = useStyles();
 
   return (
-
     <Paper component={Paper} className={classes.root}>
-
       <MenuList>
         <MenuItem component={Link} to="/">
           Home
@@ -30,13 +28,8 @@ function Menu() {
         <MenuItem component={Link} to="/showusers">
           Users
         </MenuItem>
-
-
-
       </MenuList>
-
     </Paper>
-
   )
 }
 
