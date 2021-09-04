@@ -1,8 +1,10 @@
-import { DELETE_USER,
-     GET_INFO,
-      USER_NOT_FOUND,
-       USER_SELECTED,
-       USER_UPDATED } from "./contants";
+import {
+    DELETE_USER,
+    GET_INFO,
+    USER_NOT_FOUND,
+    USER_SELECTED,
+    USER_UPDATED
+} from "./contants";
 import * as MessageActions from '../Message/action';
 import Axios from "axios";
 import { WEB_URL } from '../../utils';
@@ -67,19 +69,18 @@ export const getUser = (userid) => (dispatch, getSate) => {
 export const updateUser = (user) => (dispatch, getSate) => {
     Axios.put(WEB_URL + '/users', {
         userid: user.id,
-        email:  user.email,
+        email: user.email,
         username: user.name
-    }).then((res)=>{
+    }).then((res) => {
         if (res.status >= 200 && res.status < 300) {
             dispatch(MessageActions.setMessage(
                 'User Updated!', 'success')
             );
-            console.log("data test",res.data)
             dispatch({
                 type: USER_UPDATED,
                 payload: res.data
             });
-            
+
         }
         else {
             dispatch(MessageActions.setMessage(

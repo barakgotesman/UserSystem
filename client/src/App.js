@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
 import './App.css';
 
 import Menu from './components/Menu';
@@ -21,7 +22,11 @@ function App() {
 
     <Container maxWidth="lg" component={Paper} elevation={3}>
       <Message />
-      <h1>User system ..   </h1>
+
+      <Typography variant="h3">
+ User system
+</Typography>
+
       <Grid container spacing={3}>
         <Grid item sm={2}>
           <Menu />

@@ -27,13 +27,8 @@ function DialogWindow() {
         handleClose()
     }
 
-    const test = () =>
-    {
-        dispatch(UIDialogActions.toggleVisable());
-    }
     return (
         <div>
-            <Button onClick={test}>TEST</Button>
             <Dialog
                 open={DialogSelector.visable}
                 onClose={handleClose}

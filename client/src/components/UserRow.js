@@ -8,48 +8,46 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as UIDialogActions from '../store/UI/action';
 
 import { Link } from "react-router-dom";
 
-function UserRow(props)
-{
+function UserRow(props) {
     const user = props.user;
     const dispatch = useDispatch();
 
-    const deleteUserWithID = (userid)=>{
+    const deleteUserWithID = (userid) => {
         dispatch(UIDialogActions.toggleVisable(userid));
     }
 
-    return(
-        <>
+    return (
         <TableRow key={user.id}>
-        <TableCell>{user.id}</TableCell>
-        <TableCell>{user.name}</TableCell>
-        <TableCell>{user.email}</TableCell>
-        <TableCell>{user.last_connection}</TableCell>
-        <TableCell>
-            <Button
-                size="small"
-                variant="outlined"
-                color="primary"
-                component={Link}
-                to={`/edit/${user.id}`}
-                endIcon={<EditIcon></EditIcon>}
-            >
-                edit
-            </Button>
-        </TableCell>
-        <TableCell>
-            <IconButton
-                aria-label="delete"
-                onClick={() => { deleteUserWithID(user.id) }}>
-                <HighlightOffIcon color="error" />
-            </IconButton>
-        </TableCell>
-    </TableRow>
-    </>
+            <TableCell>{user.id}</TableCell>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.last_connection}</TableCell>
+            <TableCell>
+                <Button
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    component={Link}
+                    to={`/edit/${user.id}`}
+                    endIcon={<EditIcon></EditIcon>}
+                >
+                    edit
+                </Button>
+            </TableCell>
+            <TableCell>
+                <IconButton
+                    aria-label="delete"
+                    onClick={() => { deleteUserWithID(user.id) }}>
+                    <HighlightOffIcon color="error" />
+                </IconButton>
+            </TableCell>
+        </TableRow>
+
 
     )
 }

@@ -35,7 +35,7 @@ function EditUser() {
     const dispatch = useDispatch();
 
     const [editForm, setEditForm] = useState(initialEditValues)
-
+    
     // try to load user with Param USERID
     useEffect(() => {
         dispatch(getUser(userid))
@@ -59,7 +59,7 @@ function EditUser() {
     } 
 
     // if there is not data return to "/showusers" page
-    if (state.result.editUser.userfound == false) {
+    if (state.result.editUser.userfound === false) {
         return <Redirect to="/showusers" />
     }
 
@@ -80,7 +80,6 @@ function EditUser() {
                         disabled
                     />
                 </Grid>
-                {JSON.stringify(state.result.editUser)}
                 <Grid item sm={10}>
                     <TextField
                         value={editForm.email}

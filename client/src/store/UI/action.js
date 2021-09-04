@@ -6,7 +6,6 @@ export const toggleVisable = (userid) => (dispatch,getState) => {
         type: SET_DIALOG_VISABLE ,
         payload: userid
     })
-    console.log("toggleVisable action called!",getState())
 }
 
 //change confirm of dialog

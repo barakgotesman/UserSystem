@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { newUser } from '../store/User/action';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,18 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const initialRegisterValues={
   name:'',
   email:''
 }
 
-
-
 function Register() 
 {
   const classes = useStyles();
-  const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
 
@@ -40,15 +36,16 @@ function Register()
     setRegisterState(initialRegisterValues)
   }
 
-
   return (
-    <form className={classes.form} noValidate autoComplete="off">
+    <form 
+    className={classes.form} 
+    noValidate 
+    autoComplete="off">
       <Grid container spacing={2}>
-        {JSON.stringify(registerForm)}
         <Grid item md={12}>
           <TextField
             id="outlined-basic"
-            label="Username"
+            label="Name"
             variant="outlined"
             value={registerForm.name}
             onChange={(e) => { setRegisterState({...registerForm, name: e.target.value}) }}
@@ -64,8 +61,6 @@ function Register()
           />
         </Grid>
       </Grid>
-
-
       <Button
         size="large"
         variant="contained"
@@ -75,10 +70,7 @@ function Register()
       >
         Register user
       </Button>
-
     </form >
-
-
   )
 }
 
