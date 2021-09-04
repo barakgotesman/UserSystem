@@ -1,11 +1,14 @@
-import { DELETE_USER, GET_INFO, USER_NOT_FOUND, USER_SELECTED } from "./contants";
+import { DELETE_USER,
+     GET_INFO,
+      USER_NOT_FOUND,
+       USER_SELECTED,
+       USER_UPDATED } from "./contants";
 import * as MessageActions from '../Message/action';
 import Axios from "axios";
-import { WEB_URL } from '.../utils/index';
+import { WEB_URL } from '../../utils';
 
 export const getUsers = () => (dispatch, getState) => {
-    console.log("getState", getState, "dispatch", dispatch)
-    Axios.get(WEB_URL + "users").then((res) => {
+    Axios.get(WEB_URL + "/users").then((res) => {
         if (res.status >= 200 && res.status < 300) {
 
             dispatch({
@@ -26,10 +29,9 @@ export const getUsers = () => (dispatch, getState) => {
 }
 
 export const getUser = (userid) => (dispatch, getSate) => {
-    Axios.get(`http://localhost:3001/api/users/${userid}`).then((res) => {
+    Axios.get(WEB_URL + `/users/${userid}`).then((res) => {
         if (res.status >= 200 && res.status < 300) {
             if (res.data.length) {
-                console.log("we have data")
                 dispatch({
                     type: USER_SELECTED,
                     payload: { ...res.data[0], userfound: true }
@@ -63,12 +65,39 @@ export const getUser = (userid) => (dispatch, getSate) => {
 }
 
 export const updateUser = (user) => (dispatch, getSate) => {
-    Axios.put()
+    Axios.put(WEB_URL + '/users', {
+        userid: user.id,
+        email:  user.email,
+        username: user.name
+    }).then((res)=>{
+        if (res.status >= 200 && res.status < 300) {
+            dispatch(MessageActions.setMessage(
+                'User Updated!', 'success')
+            );
+            console.log("data test",res.data)
+            dispatch({
+                type: USER_UPDATED,
+                payload: res.data
+            });
+            
+        }
+        else {
+            dispatch(MessageActions.setMessage(
+                'server error - ' + res.status, 'error')
+            );
+        }
+    }).catch((e) => {
+        dispatch(MessageActions.setMessage(
+            'error ' + e, 'error')
+        );
+
+    })
+
 }
 
 
 export const newUser = (user) => (dispatch, getState) => {
-    Axios.post("http://localhost:3001/api/register",
+    Axios.post(WEB_URL + "/register",
         {
             name: user.name,
             email: user.email
@@ -97,7 +126,7 @@ export const newUser = (user) => (dispatch, getState) => {
 
 export const deleteUser = (userid) => (dispatch, getState) => {
 
-    Axios.delete(`http://localhost:3001/api/users/${userid}`).then((res) => {
+    Axios.delete(WEB_URL + `/users/${userid}`).then((res) => {
         if (res.status >= 200 && res.status < 300) {
 
             dispatch({

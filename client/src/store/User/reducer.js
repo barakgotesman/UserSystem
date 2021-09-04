@@ -1,9 +1,10 @@
-import { DELETE_USER, GET_INFO, USER_NOT_FOUND, USER_SELECTED } from "./contants";
+import { DELETE_USER, GET_INFO, USER_NOT_FOUND, USER_SELECTED,USER_UPDATED } from "./contants";
 
 const inalize = {
     userList: [],
     deleteSuccess: null,
     editUser: {},
+    userUpdate: {}
 }
 const reducer = (state = inalize, action) => {
     switch (action.type) {
@@ -15,6 +16,8 @@ const reducer = (state = inalize, action) => {
             return {...state, editUser: action.payload }
         case USER_NOT_FOUND:
             return {...state, editUser: action.payload };
+        case USER_UPDATED:
+            return {...state, userUpdate: action.payload}
         default:
             return state;
 

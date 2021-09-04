@@ -1,20 +1,16 @@
+import React, { useEffect, useState } from "react";
+
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChangePage } from '../utils/index'
 
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser, getUser } from '../store/User/action';
-import * as MessageActions from '../store/Message/action';
 
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
     useParams,
     Redirect
@@ -28,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const initialEditValues = {
-    id:'',
+    id: '',
     name: '',
     email: ''
 }
@@ -41,17 +37,14 @@ function EditUser() {
 
     const [editForm, setEditForm] = useState(initialEditValues)
 
-    console.log("EDIT USER RENDER ")
+    // try to load user with Param USERID
     useEffect(() => {
-        console.log("use effect edit user")
         dispatch(getUser(userid))
-
     }, []);
 
+    // if there is user, update form inputs
     useEffect(() => {
-        console.log("use effect edit user (2)", state.result.editUser)
-        if (state.result.editUser.userfound) 
-        {
+        if (state.result.editUser.userfound) {
             setEditForm({
                 id: userid,
                 name: state.result.editUser.name,
@@ -61,24 +54,17 @@ function EditUser() {
 
     }, [state.result.editUser]);
 
-    /*
-    const updateUser = (userid) => {
-        Axios.put("http://localhost:3001/api/users", {
-            userid: userid,
-            email: emailForm,
-            username: usernameForm
-        }).then((res) => {
-            console.log("editUser function", res)
-        })
-    };
-*/
-    if (state.result.editUser.userfound==false) {
+    // send dispatch for form
+    const updateUserSubmit = () => {
+        dispatch(updateUser(editForm))
+    } 
+
+    // if there is not data return to "/showusers" page
+    if (state.result.editUser.userfound == false) {
         return <Redirect to="/showusers" />
-        //ChangePage('/showusers')
     }
 
     return (
-
         <form className="form">
             <Typography component="h1" variant="h5" >
                 Edit user {userid}
@@ -93,7 +79,6 @@ function EditUser() {
                         label="User id"
                         readOnly
                         disabled
-
                     />
                 </Grid>
                 {JSON.stringify(state.result.editUser)}
@@ -113,11 +98,10 @@ function EditUser() {
                         value={editForm.name}
                         variant="outlined"
                         fullWidth
-                        label="Username"
+                        label="Name"
                         onChange={(e) => {
                             setEditForm({ ...editForm, name: e.target.value })
                         }}
-
                     />
                 </Grid>
                 <Grid item sm={12}>
@@ -125,7 +109,7 @@ function EditUser() {
                         variant="contained"
                         color="primary"
                         size="medium"
-                        onClick={() => { updateUser(userid) }}
+                        onClick={updateUserSubmit}
                     >
                         apply changes
                     </Button>
@@ -140,7 +124,6 @@ function EditUser() {
                     </Button>
                 </Grid>
             </Grid>
-
         </form>
     )
 }
