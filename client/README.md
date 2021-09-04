@@ -1,7 +1,7 @@
 # CRUD User system with React & Node.js & MYSQL 
-** Hey!, my name is barak gotesman and I am fullstack developer
+** Hey!, my name is barak gotesman and I am fullstack developer **
 I programmed this task as a home assignment and really enjoyed learning about react-redux, react-dom, react material-ui and a lot more :) **
-This project was simple CRUD user system.
+** This project was simple CRUD user system.
 
 ## Installtion
 - you need firstable intall to your database my data (barakg_users.sql) file.
