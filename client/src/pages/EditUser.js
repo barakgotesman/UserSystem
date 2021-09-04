@@ -35,28 +35,28 @@ function EditUser() {
     const dispatch = useDispatch();
 
     const [editForm, setEditForm] = useState(initialEditValues)
-    
+
     // try to load user with Param USERID
     useEffect(() => {
-        dispatch(getUser(userid))
-    }, []);
+            dispatch(getUser(userid))
+    }, [dispatch, userid]);
 
     // if there is user, update form inputs
     useEffect(() => {
         if (state.result.editUser.userfound) {
-            setEditForm({
-                id: userid,
-                name: state.result.editUser.name,
-                email: state.result.editUser.email
-            })
-        }
+                setEditForm({
+                    id: userid,
+                    name: state.result.editUser.name,
+                    email: state.result.editUser.email
+                })
+            }
 
-    }, [state.result.editUser]);
+    }, [state.result.editUser,userid]);
 
     // send dispatch for form
     const updateUserSubmit = () => {
         dispatch(updateUser(editForm))
-    } 
+    }
 
     // if there is not data return to "/showusers" page
     if (state.result.editUser.userfound === false) {

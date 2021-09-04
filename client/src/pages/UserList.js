@@ -29,9 +29,12 @@ function UserList() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    
+    useEffect(() => 
+    {
         dispatch(getUsers())
-    }, [state.result.deleteSuccess]);
+
+    }, [state.result.deleteSuccess,dispatch]);
 
     return (
         <>
