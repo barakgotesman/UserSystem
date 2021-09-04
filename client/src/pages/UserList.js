@@ -1,9 +1,10 @@
+import React, { useEffect, useState } from "react";
+
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import React, { useEffect, useState } from "react";
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
@@ -16,15 +17,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, deleteUser } from '../store/User/action';
-import * as MessageActions from '../store/Message/action';
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function UserList() {
     const [userid, setUserId] = useState(0)
@@ -55,13 +49,6 @@ function UserList() {
 
     return (
         <div>
-            <button onClick={()=>{ dispatch(MessageActions.setMessage(
-                'test','success',6000)
-            );}}>Test</button>
-            <button onClick={()=>{ dispatch(MessageActions.setMessage(
-                'test222','error',1000)
-            );}}>Test</button>
-
             <TableContainer >
                 <TableHead>
                     <TableRow>
@@ -103,7 +90,7 @@ function UserList() {
                     )}
                 </TableBody>
             </TableContainer>
-
+            
             <Dialog
                 open={open}
                 onClose={handleClose}

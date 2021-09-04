@@ -1,20 +1,6 @@
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 import './App.css';
-import React, { useEffect, useState } from "react";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
-
-import { useSelector, useDispatch } from "react-redux";
-import { getUsers, deleteUserList } from './store/User/action';
-
-import { Button, Container } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import Menu from './components/Menu';
 import Message from './components/Message';
@@ -25,49 +11,33 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import UserList from './pages/UserList.js';
 
-
+import { Container } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 function App() {
-
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
-
 
   return (
 
     <Container maxWidth="lg" component={Paper} elevation={3}>
-     
-        <Message />
-        <h1>User system ..   </h1>
-
-
-        <Grid container spacing={3}>
-          <Grid item sm={2}>
-            <Menu />
-
-          </Grid>
-          <Grid item sm={10}>
-            <div>
-
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/register"  component={Register} />
-                <Route path="/edit/:userid"  component={EditUser} />
-                <Route path="/showusers"  component={UserList} />
-
-             
-                {/* <Route path="edit/:userid">
-                  <EditUser />
-                </Route> */}
-              </Switch >
-
-            </div>
-
-
-          </Grid>
+      <Message />
+      <h1>User system ..   </h1>
+      <Grid container spacing={3}>
+        <Grid item sm={2}>
+          <Menu />
         </Grid>
-        <Footer />
-      
+        <Grid item sm={10}>
+          <div>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/register" component={Register} />
+              <Route path="/edit/:userid" component={EditUser} />
+              <Route path="/showusers" component={UserList} />
+            </Switch >
+          </div>
+        </Grid>
+      </Grid>
+      <Footer />
     </Container>
   );
 }

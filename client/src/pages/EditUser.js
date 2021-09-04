@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUser, getUser } from '../store/User/action';
 
 import {
-    BrowserRouter as Router,
     Link,
     useParams,
     Redirect
