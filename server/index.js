@@ -18,14 +18,14 @@ app.use(express.json());
 app.use(bodyPaser.urlencoded({ extended: true }));
 
 // update user by id
-app.put("/api/users", (req, res)=> {
+app.put("/api/users", (req, res) => {
     const userid = req.body.userid;
     const email = req.body.email;
     const username = req.body.username;
     const sqlUpdateQuery = "UPDATE users SET email = ?, name = ? WHERE id = ?"
 
-    db.query(sqlUpdateQuery, [email, username, userid], (err, result)=>{
-        if(err)
+    db.query(sqlUpdateQuery, [email, username, userid], (err, result) => {
+        if (err)
             res.send(err)
         else
             res.send(result)
@@ -37,10 +37,8 @@ app.delete('/api/users/:userid', (req, res) => {
     const userId = req.params.userid;
     const sqlDeleteQuery = "DELETE FROM users WHERE id = ?";
     db.query(sqlDeleteQuery, userId, (err, result) => {
-        if (err)
-            {res.send(err)}
-        else
-            {res.send(result)}
+        if (err) { res.send(err) }
+        else { res.send(result) }
     })
 })
 
@@ -49,7 +47,8 @@ app.get('/api/users/:userid', (req, res) => {
     const userId = req.params.userid;
     const sqlQuery = `SELECT * FROM users WHERE id = ?`;
     db.query(sqlQuery, userId, (err, result) => {
-        res.send(result);
+        if (err) { res.send(err) }
+        else { res.send(result) }
     });
 });
 
@@ -57,7 +56,8 @@ app.get('/api/users/:userid', (req, res) => {
 app.get('/api/users', (req, res) => {
     const sqlQuery = `SELECT * FROM users`;
     db.query(sqlQuery, (err, result) => {
-        res.send(result);
+        if (err) { res.send(err) }
+        else { res.send(result) }
     });
 });
 
@@ -68,7 +68,8 @@ app.post('/api/register', (req, res) => {
     const sqlQueryInsert =
         "INSERT INTO `users` (name,email,last_connection) VALUES(?,?,'')";
     db.query(sqlQueryInsert, [userName, email], (err, result) => {
-       res.send(result)
+        if (err) { res.send(err) }
+        else { res.send(result) }
     });
 });
 
