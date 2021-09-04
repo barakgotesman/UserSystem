@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+//components
+import DialogWindow from "../components/userList/DialogWindow";
+
+// material ui
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -9,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -90,6 +95,7 @@ function UserList() {
                     )}
                 </TableBody>
             </TableContainer>
+            <DialogWindow/>
             
             <Dialog
                 open={open}

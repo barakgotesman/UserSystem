@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
+// reducers
 import UserReducer from "./User/reducer";
+import UIdialogReducer from './UI/reducer'
 import MessageReducer from "./Message/reducer";
 
 import { createStore , applyMiddleware} from 'redux';
@@ -7,7 +9,8 @@ import thunk from "redux-thunk";
 
 const reducers = combineReducers({
     result: UserReducer,
-    message: MessageReducer
+    message: MessageReducer,
+    UIdialog: UIdialogReducer
 });
 
 
